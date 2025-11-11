@@ -326,6 +326,14 @@ window.addEventListener('scroll', () => {
         scrollTopBtn.style.opacity = '0';
         scrollTopBtn.style.visibility = 'hidden';
     }
+
+    // Nudge the button up when near the bottom to avoid overlapping footer text
+    const distanceFromBottom = document.documentElement.scrollHeight - window.pageYOffset - window.innerHeight;
+    if (distanceFromBottom < 140) {
+        scrollTopBtn.style.bottom = '90px';
+    } else {
+        scrollTopBtn.style.bottom = '30px';
+    }
 });
 
 scrollTopBtn.addEventListener('click', () => {
@@ -344,5 +352,14 @@ scrollTopBtn.addEventListener('mouseleave', function() {
     this.style.transform = 'scale(1)';
     this.style.background = 'var(--primary-color)';
 });
+
+// Ensure correct initial position on load/resize
+function updateScrollTopBtnPosition() {
+    const distanceFromBottom = document.documentElement.scrollHeight - window.pageYOffset - window.innerHeight;
+    scrollTopBtn.style.bottom = distanceFromBottom < 140 ? '90px' : '30px';
+}
+
+window.addEventListener('resize', updateScrollTopBtnPosition);
+window.addEventListener('load', updateScrollTopBtnPosition);
 
 console.log('Dar-Tim website loaded successfully! 🌿');

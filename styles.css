@@ -672,6 +672,9 @@ section {
     padding: 2.5rem;
     border-radius: 15px;
     box-shadow: var(--shadow);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .contact-form {
