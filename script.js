@@ -3,7 +3,13 @@ const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav-link');
 
-hamburger.addEventListener('click', () => {
+function closeMenu() {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+}
+
+hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
@@ -11,9 +17,26 @@ hamburger.addEventListener('click', () => {
 // Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
+        closeMenu();
     });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (navMenu.classList.contains('active')) {
+        const clickedInsideMenu = navMenu.contains(e.target);
+        const clickedHamburger = hamburger.contains(e.target);
+        if (!clickedInsideMenu && !clickedHamburger) {
+            closeMenu();
+        }
+    }
+});
+
+// Close mobile menu on scroll
+window.addEventListener('scroll', () => {
+    if (navMenu.classList.contains('active')) {
+        closeMenu();
+    }
 });
 
 // Navbar scroll effect
@@ -31,6 +54,16 @@ window.addEventListener('scroll', () => {
     
     lastScrollTop = scrollTop;
 });
+
+// Logo click scroll to top
+const logoLink = document.querySelector('.logo a');
+if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        closeMenu();
+    });
+}
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
