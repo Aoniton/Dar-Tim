@@ -211,15 +211,27 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+// Parallax effect for hero section (desktop only)
+function applyParallax() {
     const hero = document.querySelector('.hero');
-    
-    if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+    if (!hero) return;
+
+    const isDesktop = window.innerWidth >= 992;
+    if (!isDesktop) {
+        hero.style.transform = 'none';
+        return;
     }
+
+    const scrolled = window.pageYOffset;
+    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+}
+
+window.addEventListener('scroll', applyParallax, { passive: true });
+window.addEventListener('resize', () => {
+    applyParallax();
 });
+// Initial call to ensure correct state
+applyParallax();
 
 // Dynamic year in footer
 const currentYear = new Date().getFullYear();

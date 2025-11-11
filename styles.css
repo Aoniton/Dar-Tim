@@ -889,6 +889,10 @@ section {
         grid-template-columns: 1fr;
     }
 
+    .contact-form-container {
+        padding: 0.5rem;
+    }
+
     .cta-section h2 {
         font-size: 1.8rem;
     }
@@ -907,6 +911,10 @@ section {
     .btn {
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
+    }
+
+    .contact-form-container {
+        padding: 1rem;
     }
 }
 
